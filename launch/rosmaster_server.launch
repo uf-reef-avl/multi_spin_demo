@@ -1,0 +1,61 @@
+<?xml version="1.0"?> 
+<launch> 
+
+
+<arg name ="robot_1_name" value = "mturtle"/>
+<arg name ="robot_2_name" value = "pturtle"/>
+<arg name ="robot_3_name" value = "kturtle"/>
+<arg name ="robot_4_name" value = "rturtle"/>
+
+<rosparam command="load" file="$(find multi_spin_demo)/config/turtlebot_list.yaml"/>
+<arg name="use_sim_time" default="true"/>
+		<node name="clock_server" pkg="multi_spin_demo" type="clock_server_node"  output = "screen"/>
+
+		
+		<!--include file = "$(find ros_vrpn_client)/launch/test.launch">
+		<arg name = "name" value="$(arg robot_1_name)"/>
+		</include> 	
+		<include file = "$(find ros_vrpn_client)/launch/test.launch">
+		<arg name = "name" value="$(arg robot_2_name)"/>
+		</include> 	
+		<include file = "$(find ros_vrpn_client)/launch/test.launch">
+		<arg name = "name" value="$(arg robot_3_name)"/>
+		</include--> 	
+
+		<!--include file = "$(find ros_vrpn_client)/launch/test.launch">
+		<arg name = "name" value="$(arg robot_4_name)"/>
+		</include--> 	
+
+
+
+		<!--node pkg="rosbag" type="record" name="rosbag_record_velocity"
+       args="record -o mturtle/mobile_base/commands/velocity pturtle/mobile_base/commands/velocity "
+  /-->
+	
+		
+		<!--node name="$(arg robot_1_name)_simulation" pkg="turtlesim" type="turtlesim_node" /node-->
+		
+		<!--include file = "$(find setpoint_generator)/launch/basic.launch">
+		<remap from="transform_stamped" to="pturtle/pose"/>
+		</include-->
+
+
+		<!--node name="action_server_2" pkg="turtlebot_action_server" type="turtlebot_action_server_node" args="$(arg robot_2_name)" output = "screen"/>
+		<node name="action_server_3" pkg="turtlebot_action_server" type="turtlebot_action_server_node" args="$(arg robot_3_name)" output = "screen"/>
+		<node name="action_server_4" pkg="turtlebot_action_server" type="turtlebot_action_server_node" args="$(arg robot_4_name)" output = "screen"/-->
+
+		
+		
+		
+		<!--node name="$(arg robot_1_name)_simulation" pkg="turtlesim" type="turtlesim_node" /node-->
+		
+		<!--include file = "$(find setpoint_generator)/launch/basic.launch">
+		<remap from="transform_stamped" to="pturtle/pose"/>
+		</include-->
+		
+
+
+
+
+
+</launch>

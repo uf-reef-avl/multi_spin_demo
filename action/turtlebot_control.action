@@ -1,0 +1,11 @@
+# Define the position goal
+std_msgs/Bool temp_goal
+---
+# Define the result
+geometry_msgs/PoseStamped ultimate_position
+---
+# Define a feedback message
+geometry_msgs/PoseStamped current_position
+float32 x_velocity
+float32 y_velocity
+std_msgs/ByteMultiArray servers_up
