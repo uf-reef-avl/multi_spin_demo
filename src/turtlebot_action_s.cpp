@@ -13,8 +13,6 @@
 
 turtlebot_action_s::turtlebot_action_s(ros::NodeHandle nh, std::string name):node(nh),as(nh,name,false), turtleName(name){
 
-
-
  //call the goal callback everytime a new goal is received
   as.registerGoalCallback(boost::bind(&turtlebot_action_s::goalCallback,this));
   //call the preemption callback everytime a cancel request is received
@@ -134,7 +132,6 @@ turtlebot_action_s::turtlebot_action_s(ros::NodeHandle nh, std::string name):nod
       index += 1;
    }
 
-  ROS_INFO("initialisation of the parameters of  %s is finished",turtleName.c_str());
 
   int indexNextServer;
   // the clients are linked to the next turtlebot server
@@ -151,9 +148,10 @@ turtlebot_action_s::turtlebot_action_s(ros::NodeHandle nh, std::string name):nod
 
   ros::Rate loopRate(120);
 
-  spinMsg.data = false;
+  spinMsg.data = true;
   //every linked client send one goal to the next turtlebot to receive his feedback
   turtleClients[indexNextServer]->sendOrder(spinMsg);
+
   ROS_INFO("initialisation of the parameters of  %s is finished",turtleName.c_str());
 
 
@@ -203,9 +201,14 @@ turtlebot_action_s::turtlebot_action_s(ros::NodeHandle nh, std::string name):nod
 	 // if the shared vector is [1.1...1.1] finish the loop
     initFlag = !isEveryoneConnected();
 
-    //send the vector to the previous turtlebot
-    as.publishFeedback(feedbackMsg.feedback);
-
+    //send the vector to the previous turtlebot if the server as already receive some order from client (switchmode is initialized to false)
+    if(switchMode == true)
+    { 
+	as.publishFeedback(feedbackMsg.feedback);
+    }
+   
+  
+    
     ros::spinOnce();
     loopRate.sleep();
   }
@@ -232,19 +235,20 @@ turtlebot_action_s::~turtlebot_action_s() {
 bool turtlebot_action_s::isEveryoneConnected()
 //check if all the slot of the shared vector is set to 1
 {
+
   bool everyoneConnected = true;
   for(int i = 0; i < numberOfTurtle; i++)
   {
+
 	  everyoneConnected = everyoneConnected && connectedTurtles[i];
   }
-
   return everyoneConnected;
 }
 
 void turtlebot_action_s::goalCallback()
 {
 //set the new goal of the turtlebot send by others turtlebot
-//ROS_INFO("new goal received, switch mode %s",turtleName.c_str());
+  ROS_INFO("new goal received, switch mode %s",turtleName.c_str());
   const std_msgs::Bool spinTemp = as.acceptNewGoal()->temp_goal;
   switchMode = spinTemp.data;
   /*goal.pose.position.x = goal_temp.pose.position.x;
