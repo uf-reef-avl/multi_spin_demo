@@ -181,8 +181,7 @@ turtlebot_action_s::turtlebot_action_s(ros::NodeHandle nh, std::string name):nod
 			  }
 		  }
 	  //if the client to the next turtlebot of the current turtlebot is connected to the next one, add a 1 in the connection vector
-	  //if(turtleClients[indexNextServer]->isClientConnected() and initKobuki == true)
-	  if(turtleClients[indexNextServer]->isClientConnected())
+	  if(turtleClients[indexNextServer]->isClientConnected() and initKobuki == true)
 	 {
 	 	connectedTurtles[turtleID] = 1;
 
@@ -283,7 +282,6 @@ ROS_INFO("what happened");
 // check is the server is preempted or ros is still running
   if (!as.isPreemptRequested() || ros::ok())
        {
-            ROS_INFO("what happened");
 	//compute the velocity to get to to the goal position
 	/*ROS_INFO("transform translation %f",msg.transform.translation.x);
 	ROS_INFO("transform translation %f",msg.transform.translation.y);
