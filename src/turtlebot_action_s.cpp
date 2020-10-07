@@ -195,11 +195,13 @@ turtlebot_action_s::turtlebot_action_s(ros::NodeHandle nh, std::string name):nod
 	  for(int i = 0; i < numberOfTurtle ; i++)
 		  {
 		  // add the newly created
+		        ROS_INFO("ilet s see --------------- %s ----%d----%d------- finished",turtleName.c_str(),i,connectedTurtles[i] );
 		  feedbackMsg.feedback.servers_up.data.push_back(connectedTurtles[i]);
 
 		  }
 	 // if the shared vector is [1.1...1.1] finish the loop
     initFlag = !isEveryoneConnected();
+
 
     //send the vector to the previous turtlebot if the server as already receive some order from client (switchmode is initialized to false)
     if(switchMode == true)
