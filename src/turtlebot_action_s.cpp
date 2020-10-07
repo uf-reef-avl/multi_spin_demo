@@ -181,7 +181,8 @@ turtlebot_action_s::turtlebot_action_s(ros::NodeHandle nh, std::string name):nod
 			  }
 		  }
 	  //if the client to the next turtlebot of the current turtlebot is connected to the next one, add a 1 in the connection vector
-	  if(turtleClients[indexNextServer]->isClientConnected() and initKobuki == true)
+	  //if(turtleClients[indexNextServer]->isClientConnected() and initKobuki == true)
+	  if(turtleClients[indexNextServer]->isClientConnected())
 	 {
 	 	connectedTurtles[turtleID] = 1;
 
@@ -195,7 +196,6 @@ turtlebot_action_s::turtlebot_action_s(ros::NodeHandle nh, std::string name):nod
 	  for(int i = 0; i < numberOfTurtle ; i++)
 		  {
 		  // add the newly created
-		        ROS_INFO("ilet s see --------------- %s ----%d----%d------- finished",turtleName.c_str(),i,connectedTurtles[i] );
 		  feedbackMsg.feedback.servers_up.data.push_back(connectedTurtles[i]);
 
 		  }
