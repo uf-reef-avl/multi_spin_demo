@@ -276,9 +276,8 @@ void turtlebot_action_s::executeCallback(const std_msgs::Float64 &msg)
 
 // check if the initialisation is finished and the server still active
   if(!as.isActive() || initFlag)
-  ROS_INFO("yo it us me");
     return;
-
+ROS_INFO("what happened");
 // check is the server is preempted or ros is still running
   if (!as.isPreemptRequested() || ros::ok())
        {
