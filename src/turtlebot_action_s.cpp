@@ -41,6 +41,8 @@ turtlebot_action_s::turtlebot_action_s(ros::NodeHandle nh, std::string name):nod
     ROS_ERROR("%s hasn't found the other robot's names",turtleName.c_str());
   }
 
+
+
   // compute the number of turtlebot
   numberOfTurtle = robotNames.size();
   // create a int vector in order to check the connection between the turtle
@@ -69,6 +71,22 @@ turtlebot_action_s::turtlebot_action_s(ros::NodeHandle nh, std::string name):nod
         turtleID = index;
         // add an empty client for the turtle ID in the client vector
         turtleClients.push_back(NULL);
+        //initialize the launchmode of turtle
+        std::vector<double> tempLaunchMode;
+          if(node.getParam("turtleList/launchMode/"+currentName,tempLaunchMode))
+          {
+              if(tempLaunchMode[turtleID] == "gazebo") {
+
+              } else {
+                  
+              }
+              ROS_INFO("initial the launch mode of %s set \n",currentName.c_str());
+          }
+          else
+          {
+              ROS_ERROR("failed to set launch mode %s \n",currentName.c_str());
+          }
+
         //initialize the initial goal parameter of the turtle
         std::vector<double> tempInitialGoal;
         if(node.getParam("turtleList/initialGoals/"+currentName,tempInitialGoal))
@@ -181,7 +199,7 @@ turtlebot_action_s::turtlebot_action_s(ros::NodeHandle nh, std::string name):nod
 			  }
 		  }
 	  //if the client to the next turtlebot of the current turtlebot is connected to the next one, add a 1 in the connection vector
-	  if(turtleClients[indexNextServer]->isClientConnected() and initKobuki == true)
+	  if(turtleClients[indexNextServer]->isClientConnected() and (launchMode == "gazebo" or (launchMode == "turtlebot" and initKobuki == true)))
 	 {
 	 	connectedTurtles[turtleID] = 1;
 

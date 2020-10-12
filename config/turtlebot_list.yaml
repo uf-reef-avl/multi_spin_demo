@@ -1,4 +1,6 @@
 turtleList: { names : [pturtle, mturtle],
+              launchMode : { pturtle: gazebo,
+                             mturtle: gazebo }, #can be gazebo, turtlebot
               initialGoals: {pturtle : [1.0,1.0,0.0], 
                              mturtle:[1.0,-1.0,0.0] }, 
               xPIDThet: {pturtle : [1.0,0.0,0.0,0.0], 

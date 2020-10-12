@@ -56,7 +56,7 @@ class turtlebot_action_s {
   int numberOfTurtle = 0;
   //std::vector<std::vector<std::uint8_t>> serversUp;
   int turtleID;
-
+  std::string launchMode
 
 
 
