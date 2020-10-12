@@ -72,14 +72,10 @@ turtlebot_action_s::turtlebot_action_s(ros::NodeHandle nh, std::string name):nod
         // add an empty client for the turtle ID in the client vector
         turtleClients.push_back(NULL);
         //initialize the launchmode of turtle
-        std::vector<double> tempLaunchMode;
+        std::string tempLaunchMode;
           if(node.getParam("turtleList/launchMode/"+currentName,tempLaunchMode))
           {
-              if(tempLaunchMode[turtleID] == "gazebo") {
-
-              } else {
-                  
-              }
+	      launchMode = tempLaunchMode;
               ROS_INFO("initial the launch mode of %s set \n",currentName.c_str());
           }
           else
