@@ -219,6 +219,7 @@ turtlebot_action_s::turtlebot_action_s(ros::NodeHandle nh, std::string name):nod
 	 // if the shared vector is [1.1...1.1] finish the loop
     initFlag = !isEveryoneConnected();
 
+
     //send the vector to the previous turtlebot if the server as already receive some order from client (switchmode is initialized to false)
     if(switchMode == true)
     { 
@@ -295,7 +296,7 @@ void turtlebot_action_s::executeCallback(const std_msgs::Float64 &msg)
 // check if the initialisation is finished and the server still active
   if(!as.isActive() || initFlag)
     return;
-
+ROS_INFO("what happened");
 // check is the server is preempted or ros is still running
   if (!as.isPreemptRequested() || ros::ok())
        {
