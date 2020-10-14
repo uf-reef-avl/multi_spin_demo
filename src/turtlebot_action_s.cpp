@@ -172,6 +172,9 @@ turtlebot_action_s::turtlebot_action_s(ros::NodeHandle nh, std::string name) : n
 
         } else {//if the client to the next turtlebot of the current turtlebot is not connected to the next one, add a 0 in the connection vector
             connectedTurtles[turtleID] = 0;
+            if(initKobuki == false) {
+                ROS_INFO("%s waiting for kobuki to set up", turtleName.c_str());
+            }
         }
         //clear the previous feedback sended
         feedbackMsg.feedback.servers_up.data.clear();
