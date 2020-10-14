@@ -10,8 +10,8 @@
 		</include>
 		</group>
 
+
 		<node name="$(arg robot_name)_action_server" pkg="multi_spin_demo" type="turtlebot_action_server_node" args="$(arg robot_name)" output = "screen"/>
 
-	
 
 </launch>

@@ -24,6 +24,7 @@
 #include "std_msgs/Bool.h"
 #include "turtlebot_action_c.hpp"
 #include "simple_pid.h"
+#include "rosgraph_msgs/Clock.h"
 #include <multi_spin_demo/turtlebot_controlAction.h>
 #include "kobuki_msgs/RobotStateEvent.h"
 
@@ -35,7 +36,7 @@ class turtlebot_action_s {
   virtual ~turtlebot_action_s();
   void goalCallback();
   void preemptCallback();
-  void executeCallback(const std_msgs::Float64 &msg);
+  void executeCallback(const rosgraph_msgs::Clock &msg);
   void waitKobukiCallback(const kobuki_msgs::RobotStateEvent &msg);
 
   bool isEveryoneConnected();
