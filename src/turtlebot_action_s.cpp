@@ -183,18 +183,87 @@ turtlebot_action_s::turtlebot_action_s(ros::NodeHandle nh, std::string name) : n
             feedbackMsg.feedback.servers_up.data.push_back(connectedTurtles[i]);
 
         }
-        // if the shared vector is [1.1...1.1] finish the loop
-        initFlag = !isEveryoneConnected();
+      }
+      // increase the turtle possible ID every loop
+      index += 1;
+   }
 
 
-        //send the vector to the previous turtlebot if the server as already receive some order from client (switchmode is initialized to false)
-        if (switchMode == true) {
-            as.publishFeedback(feedbackMsg.feedback);
-        }
+  int indexNextServer;
+  // the clients are linked to the next turtlebot server
+  if(turtleID == numberOfTurtle-1) // if the turtle ID is the last one, the client is bound to the fist turtle
+  {
+	  indexNextServer = 0;
+
+  }
+  else
+  {
+	  indexNextServer = turtleID + 1;
+  }
 
 
-        ros::spinOnce();
-        loopRate.sleep();
+  ros::Rate loopRate(120);
+
+  spinMsg.data = true;
+  //every linked client send one goal to the next turtlebot to receive his feedback
+  turtleClients[indexNextServer]->sendOrder(spinMsg);
+
+  ROS_INFO("initialisation of the parameters of  %s is finished",turtleName.c_str());
+
+
+  //rate of the refreshing loop
+
+  while(initFlag)
+  {
+
+	  //clear the connection's vector
+	  connectedTurtles.clear();
+
+	  //check the connection data vector
+	  for(int i = 0; i < numberOfTurtle ; i++)
+		{
+		  	  //retrieve the vector of the next turtlebot
+			  if(turtleClients[indexNextServer]->getLastFeedback() != NULL)
+			  {
+
+				  connectedTurtles[i] = turtleClients[indexNextServer]->getLastFeedback()->servers_up.data[i];
+
+			  }
+			  else
+			  {
+				  // if the current turtlebot can't just add 0 to all the connection
+				  connectedTurtles[i] = 0;
+
+			  }
+		  }
+	  //if the client to the next turtlebot of the current turtlebot is connected to the next one, add a 1 in the connection vector
+	  if(turtleClients[indexNextServer]->isClientConnected() and initKobuki == true)
+	 {
+	 	connectedTurtles[turtleID] = 1;
+
+	 }
+	 else
+	 {//if the client to the next turtlebot of the current turtlebot is not connected to the next one, add a 0 in the connection vector
+	 	 connectedTurtles[turtleID] = 0;
+	 	 if(initKobuki == false) {
+	 	    ROS_INFO("Waiting for the kobuki driver to launch");
+	 	 }
+	 }
+	  //clear the previous feedback sended
+	  feedbackMsg.feedback.servers_up.data.clear();
+	  for(int i = 0; i < numberOfTurtle ; i++)
+		  {
+		  // add the newly created
+		  feedbackMsg.feedback.servers_up.data.push_back(connectedTurtles[i]);
+
+		  }
+	 // if the shared vector is [1.1...1.1] finish the loop
+    initFlag = !isEveryoneConnected();
+
+    //send the vector to the previous turtlebot if the server as already receive some order from client (switchmode is initialized to false)
+    if(switchMode == true)
+    { 
+	as.publishFeedback(feedbackMsg.feedback);
     }
     ROS_INFO("initialisation of --------------- %s --------------- finished", turtleName.c_str());
 
