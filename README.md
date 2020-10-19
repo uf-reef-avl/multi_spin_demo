@@ -31,16 +31,19 @@ This package is a **ros-kinetic** package and depends mainly upon the [kobuki pa
 
 <a name="Usage"/>
 ## Usage
+Real environment:
 
 First of all ensure that the nucs have the user computer set as master. To do so, follow the [network configuration](http://wiki.ros.org/turtlebot/Tutorials/indigo/Network%20Configuration) tutorial. Compile the package on the user computer and on the nucs by using the ```catkin_make``` command into the catkin_workspace of each devices.
 
 If it's not already done, connect the different nucs to the turtlebot and ssh into them from the master computer. Then source the catkin workspace of every devices with the ```source devel/setup.bash``` command.
 
-On the master computer, modify the yaml file **turtlebot_list.yaml** to match the demonstration condition (number and names of the turtlebot ...). Then launch the master node on the user computer with the command:
+On the master computer, modify the yaml file **turtlebot_list.yaml** to match the demonstration condition (number and names of the turtlebot, if you will use gazebo or a real tutlebot environnement ...). 
+
+Then launch the master node on the user computer with the command:
 
         roslaunch multi_spin_demo rosmaster_server.launch
         
-Via the ssh connection, launch on every nuc the file **turtlebot_server.launch** with one of the turtlebot name specified previously in the yaml file **turtlebot_list.yaml**. For an example, if 3 nucs are set up and the names "pturtle", "kturtle" and "mturtle" are written in the yaml file then send commands:
+Via the ssh connection, launch on every nuc the file **turtlebot_server.launch** with one of the turtlebot name specified previously in the yaml file **turtlebot_list.yaml**. For an example, if 2 nucs are set up and the names "pturtle", "mturtle" are written in the yaml file then send commands:
 
 On the first nuc via ssh:
 
@@ -48,10 +51,19 @@ On the first nuc via ssh:
 
 On the second nuc via ssh:
         
-        roslaunch multi_spin_demo turtlebot_server.launch robot_name:=kturtle
-        
-On the third nuc via ssh:
-        
         roslaunch multi_spin_demo turtlebot_server.launch robot_name:=mturtle
         
+        
 It's important to launch all the turtlebot/nuc specified in the yaml file and to connect the nuc to the turtlebot otherwise the demonstration won't start.
+
+Simulated environment:
+
+If you want to use a gazebo environment, you will have to launch an empty world in gazebo first. So launch it with the command:
+
+        roslaunch gazebo_ros empty_world.launch
+
+Then make sure in the **turtlebot_list.yaml** file that the launchMode of the turtle is set to ***gazebo***, then launch the following command:
+
+        roslaunch multi_spin_demo gazebo_demo.launch
+        
+Make sure that the **gazebo_ros** library is already installed on your computer.
