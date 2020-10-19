@@ -9,9 +9,6 @@
 <node name="clock_server" pkg="multi_spin_demo" type="clock_server_node"  output = "screen"/>
 
 		
-
-
-
 <!-- Unused part of the launch file -->
 <!--
 <arg name ="robot_1_name" value = "mturtle"/>

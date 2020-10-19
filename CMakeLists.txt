@@ -15,6 +15,7 @@ find_package(catkin REQUIRED COMPONENTS
   actionlib_msgs
   actionlib 
   message_generation
+  rosgraph_msgs
 )
 
 
@@ -53,7 +54,7 @@ find_package(catkin REQUIRED COMPONENTS
 ## Generate added messages and services with any dependencies listed here
  generate_messages(
    DEPENDENCIES
-   actionlib_msgs std_msgs geometry_msgs
+   actionlib_msgs std_msgs geometry_msgs rosgraph_msgs
  )
 
 ################################################
@@ -88,7 +89,7 @@ find_package(catkin REQUIRED COMPONENTS
 catkin_package(
   INCLUDE_DIRS include
   LIBRARIES turtlebot_action_server
-  CATKIN_DEPENDS roscpp rospy std_msgs actionlib_msgs
+  CATKIN_DEPENDS roscpp rospy std_msgs actionlib_msgs rosgraph_msgs
 #  DEPENDS system_lib
 )
 

@@ -1,0 +1,48 @@
+<?xml version="1.0"?> 
+<launch> 
+
+<rosparam command="load" file="$(find multi_spin_demo)/config/turtlebot_list.yaml"/>
+<arg name="use_sim_time" default="true"/>
+
+	
+  <arg name="model" default="burger"/>
+  <arg name ="robot_name1" default = "pturtle"/>
+  <arg name ="robot_name2" default = "mturtle"/>
+  <arg name="robot_name1_x_pos" default="1."/>
+  <arg name="robot_name1_y_pos" default="1.0"/>
+  <arg name="robot_name1_z_pos" default="0.0"/>
+  <arg name="robot_name1_yaw"   default="90.0"/>
+  <arg name="robot_name2_x_pos" default="1."/>
+  <arg name="robot_name2_y_pos" default="2.0"/>
+  <arg name="robot_name2_z_pos" default="0.0"/>
+  <arg name="robot_name2_yaw"   default="90.0"/>
+
+  <group ns = "$(arg robot_name1)">
+    <param name="robot_description" command="$(find xacro)/xacro --inorder $(find turtlebot3_description)/urdf/turtlebot3_$(arg model).urdf.xacro" />
+
+    <node pkg="robot_state_publisher" type="robot_state_publisher" name="robot_state_publisher" output="screen">
+      <param name="publish_frequency" type="double" value="50.0" />
+      <param name="tf_prefix" value="$(arg robot_name1)" />
+    </node>
+    <node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model" args="-urdf -model $(arg robot_name1) -x $(arg robot_name1_x_pos) -y $(arg robot_name1_y_pos) -z $(arg robot_name1_z_pos) -Y $(arg robot_name1_yaw) -param robot_description" />
+</group>
+
+  <group ns = "$(arg robot_name2)">
+    <param name="robot_description" command="$(find xacro)/xacro --inorder $(find turtlebot3_description)/urdf/turtlebot3_$(arg model).urdf.xacro" />
+
+    <node pkg="robot_state_publisher" type="robot_state_publisher" name="robot_state_publisher" output="screen">
+      <param name="publish_frequency" type="double" value="50.0" />
+      <param name="tf_prefix" value="$(arg robot_name2)" />
+    </node>
+    <node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model" args="-urdf -model $(arg robot_name2) -x $(arg robot_name2_x_pos) -y $(arg robot_name2_y_pos) -z $(arg robot_name2_z_pos) -Y $(arg robot_name2_yaw) -param robot_description" />
+</group>
+
+<node name="$(arg robot_name1)_action_server" pkg="multi_spin_demo" type="turtlebot_action_server_node" args="$(arg robot_name1)" output = "screen">
+	<remap from="$(arg robot_name1)/mobile_base/commands/velocity" to="$(arg robot_name1)/cmd_vel"/>
+</node>
+<node name="$(arg robot_name2)_action_server" pkg="multi_spin_demo" type="turtlebot_action_server_node" args="$(arg robot_name2)" output = "screen">
+	<remap from="$(arg robot_name2)/mobile_base/commands/velocity" to="$(arg robot_name2)/cmd_vel"/>
+</node>
+
+
+</launch>
