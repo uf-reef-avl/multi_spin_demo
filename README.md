@@ -37,7 +37,7 @@ First of all ensure that the nucs have the user computer set as master. To do so
 
 If it's not already done, connect the different nucs to the turtlebot and ssh into them from the master computer. Then source the catkin workspace of every devices with the ```source devel/setup.bash``` command.
 
-On the master computer, modify the yaml file **turtlebot_list.yaml** to match the demonstration condition (number and names of the turtlebot, if you will use gazebo or a real tutlebot environnement ...). 
+On the master computer, modify the yaml file **turtlebot_list.yaml** to match the demonstration condition (number and names of the turtlebot, if you will use gazebo or a real tutlebot environment ...). 
 
 Then launch the master node on the user computer with the command:
 
@@ -62,7 +62,7 @@ If you want to use a gazebo environment, you will have to launch an empty world 
 
         roslaunch gazebo_ros empty_world.launch
 
-Then make sure in the **turtlebot_list.yaml** file that the launchMode of the turtle is set to ***gazebo***, then launch the following command:
+Then make sure in the **turtlebot_list.yaml** file that the launchMode of the turtle is set to ***gazebo*** and that the rigidbody of the turtles are specified also in the **gazebo_demo.launch** file , then launch the following command:
 
         roslaunch multi_spin_demo gazebo_demo.launch
         
