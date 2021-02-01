@@ -1,5 +1,8 @@
 # Multi turtlebot spinning demonstration
 
+![example workflow file path](https://github.com/actions/main/workflows/.github/workflows/industrial_ci_action.yml/badge.svg)
+
+
 This package is a demonstration of the action client-server architecture in ros. The main idea is to launch several turtlebots at the same time and make them spin to one direction. Every random amount of seconds, one of them will change its spinning direction and ask the other ones to do the same. 
 
 
