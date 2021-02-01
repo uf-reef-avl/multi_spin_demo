@@ -1,6 +1,6 @@
 # Multi turtlebot spinning demonstration
 
-![example workflow file path](https://github.com/uf-reef-avl/multi_spin_demo/workflows/main/badge.svg)
+[![Build Status](https://travis-ci.org/uf-reef-avl/multi_spin_demo.svg?branch=melodic-devel)](https://travis-ci.org/uf-reef-avl/multi_spin_demo)
 
 
 This package is a demonstration of the action client-server architecture in ros. The main idea is to launch several turtlebots at the same time and make them spin to one direction. Every random amount of seconds, one of them will change its spinning direction and ask the other ones to do the same. 
