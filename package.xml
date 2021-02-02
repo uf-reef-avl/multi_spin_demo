@@ -52,6 +52,7 @@
   <depend>actionlib</depend>
   <depend>actionlib_msgs</depend>
   <depend>tf</depend>
+  <depend>kobuki_msgs</depend>
   <build_depend>roscpp</build_depend>
   <build_depend>rospy</build_depend>
   <build_depend>std_msgs</build_depend>
