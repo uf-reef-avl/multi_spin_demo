@@ -1,7 +1,7 @@
 # Multi turtlebot spinning demonstration
 
 [![Build Status](https://travis-ci.org/uf-reef-avl/multi_spin_demo.svg?branch=melodic-devel)](https://travis-ci.org/uf-reef-avl/multi_spin_demo)
-[![Action Status](https://github.com/uf-reef-avl/multi_spin_demo/workflows/main/badge.svg)](https://github.com/uf-reef-avl/multi_spin_demo/actions)
+[![Actions Status](https://github.com/uf-reef-avl/multi_spin_demo/workflows/main/badge.svg)](https://github.com/uf-reef-avl/multi_spin_demo/actions)
 
 
 
